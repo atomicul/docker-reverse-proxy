@@ -1,0 +1,12 @@
+services:
+  proxy:
+    image: ghcr.io/atomicul/docker-reverse-proxy:${IMAGE_VERSION}
+    build: .
+    pull_policy: build
+    restart: unless-stopped
+    ports:
+      - '8080:80'
+    command:
+      - '/d/d/g/ http://10.7.7.124:3001/'
+      - '/ http://10.7.7.124:3000/'
+
