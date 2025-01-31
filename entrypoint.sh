@@ -1,5 +1,13 @@
 #!/bin/bash
 
+server () { nginx -g 'daemon off;'; }
+
+if [ -f /done-configuring ]
+then
+    server
+    exit $?
+fi
+
 line_number=$(
     grep -m 1 -nE '^http\s*{' < /etc/nginx/nginx.conf |
     awk -F ':' '{print $1}'
@@ -31,4 +39,6 @@ done
 
 echo '}' >>/etc/nginx/sites-enabled/default
 
-nginx -g 'daemon off;'
+touch /done-configuring
+
+server
