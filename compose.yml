@@ -2,11 +2,11 @@ services:
   proxy:
     image: ghcr.io/atomicul/docker-reverse-proxy:${IMAGE_VERSION}
     build: .
-    pull_policy: build
+    pull_policy: missing
     restart: unless-stopped
     ports:
       - '80:80'
     command:
-      - '/ http://${HOST_IP}:3000/'
-      - '/a/b/c/ http://${HOST_IP}:3001/'
+      - '/ http://${HOST_IP}:3001'
+      - '/a/b/c/ http://${HOST_IP}:3002'
 

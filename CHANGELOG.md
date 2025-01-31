@@ -7,3 +7,6 @@
 
 # v0.1.2
 * Fix initial configuration running on each restart
+
+# v1.0.0
+* Add README
