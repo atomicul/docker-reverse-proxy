@@ -10,3 +10,7 @@
 
 # v1.0.0
 * Add README
+
+# v1.1.0
+* Add volumes to tweak the config and see logs
+* Remove unused commented code
