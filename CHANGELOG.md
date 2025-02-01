@@ -14,3 +14,7 @@
 # v1.1.0
 * Add volumes to tweak the config and see logs
 * Remove unused commented code
+
+# v1.1.1
+* Fix a bug where the entire config would get overwritten
+with the defaults

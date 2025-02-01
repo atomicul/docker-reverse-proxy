@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir -p /config/
-if [ "$(ls -l /config/ | head -n 1 | awk '{print $2}')"=='0' ]
+if [[ "$(ls -l /config/ | head -n 1 | awk '{print $2}')" -eq 0 ]]
 then
     cp -r /nginx-defaults/* /config/
 fi
