@@ -5,6 +5,6 @@ RUN apt-get update -qq && \
 COPY config /nginx-defaults
 COPY entrypoint.sh /bin
 RUN chmod +x /bin/entrypoint.sh
-VOLUME /nginx
+VOLUME /config
 VOLUME /logs
 ENTRYPOINT [ "entrypoint.sh" ]

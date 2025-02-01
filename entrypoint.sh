@@ -1,14 +1,14 @@
 #!/bin/bash
 
-mkdir -p /nginx/
-if [ "$(ls -l /nginx/ | head -n 1 | awk '{print $2}')"=='0' ]
+mkdir -p /config/
+if [ "$(ls -l /config/ | head -n 1 | awk '{print $2}')"=='0' ]
 then
-    cp -r /nginx-defaults/* /nginx/
+    cp -r /nginx-defaults/* /config/
 fi
 
-mkdir -p /nginx/sites-available/
+mkdir -p /config/sites-available/
 
-cat >/nginx/sites-available/generated <<'EOF'
+cat >/config/sites-available/generated <<'EOF'
 server {
     listen 80;
     listen [::]:80;
@@ -20,7 +20,7 @@ do
     pair=($i)
     prefix="${pair[0]}"
     host="${pair[1]}"
-    cat >>/nginx/sites-available/generated <<EOF
+    cat >>/config/sites-available/generated <<EOF
     location $prefix {
         rewrite ^$prefix(.*) /\$1  break;
         proxy_pass $host\$uri\$is_args\$args;
@@ -28,6 +28,9 @@ do
 EOF
 done
 
-echo '}' >>/nginx/sites-available/generated
+echo '}' >>/config/sites-available/generated
 
-nginx -c /nginx/nginx.conf -g 'daemon off;'
+rm -f /config/sites-enabled/generated
+ln -sn /config/sites-available/generated /config/sites-enabled/
+
+nginx -c /config/nginx.conf -g 'daemon off;'
