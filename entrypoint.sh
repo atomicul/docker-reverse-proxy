@@ -23,8 +23,6 @@ do
     cat >>/nginx/sites-available/generated <<EOF
     location $prefix {
         rewrite ^$prefix(.*) /\$1  break;
-        # this set prevents some dns caching issues when used with docker-compose
-        # set \$target $host\$uri\$is_args\$args;
         proxy_pass $host\$uri\$is_args\$args;
     }
 EOF
