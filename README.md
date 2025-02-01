@@ -19,3 +19,8 @@ The following forwarding happens:
 * `http://localhost:3000/a/b/c/` -> `http://host2/c/`
 
 You can find an example in `compose.yml`.
+
+## Debugging & Tweaking
+You can mount `/logs` to check logs.
+
+You can tweak the server configuration by mounting `/config`. 
