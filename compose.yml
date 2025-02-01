@@ -6,6 +6,9 @@ services:
     restart: unless-stopped
     ports:
       - '80:80'
+    volumes:
+      - './volumes/logs:/logs'
+      - './volumes/config:/nginx'
     command:
       - '/ http://${HOST_IP}:3001'
       - '/a/b/c/ http://${HOST_IP}:3002'

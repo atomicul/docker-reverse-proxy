@@ -1,21 +1,14 @@
 #!/bin/bash
 
-server () { nginx -g 'daemon off;'; }
-
-if [ -f /done-configuring ]
+mkdir -p /nginx/
+if [ "$(ls -l /nginx/ | head -n 1 | awk '{print $2}')"=='0' ]
 then
-    server
-    exit $?
+    cp -r /nginx-defaults/* /nginx/
 fi
 
-line_number=$(
-    grep -m 1 -nE '^http\s*{' < /etc/nginx/nginx.conf |
-    awk -F ':' '{print $1}'
-)
+mkdir -p /nginx/sites-available/
 
-sed -i "$line_number a resolver 127.0.0.11;" /etc/nginx/nginx.conf
-
-cat >/etc/nginx/sites-enabled/default <<'EOF'
+cat >/nginx/sites-available/generated <<'EOF'
 server {
     listen 80;
     listen [::]:80;
@@ -27,7 +20,7 @@ do
     pair=($i)
     prefix="${pair[0]}"
     host="${pair[1]}"
-    cat >>/etc/nginx/sites-enabled/default <<EOF
+    cat >>/nginx/sites-available/generated <<EOF
     location $prefix {
         rewrite ^$prefix(.*) /\$1  break;
         # this set prevents some dns caching issues when used with docker-compose
@@ -37,8 +30,6 @@ do
 EOF
 done
 
-echo '}' >>/etc/nginx/sites-enabled/default
+echo '}' >>/nginx/sites-available/generated
 
-touch /done-configuring
-
-server
+nginx -c /nginx/nginx.conf -g 'daemon off;'
