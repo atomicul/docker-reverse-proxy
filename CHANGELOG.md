@@ -18,3 +18,6 @@
 # v1.1.1
 * Fix a bug where the entire config would get overwritten
 with the defaults
+
+# v1.1.2
+* Rephrase README
