@@ -7,7 +7,7 @@ to expose multiple HTTP services under a single socket address (i.e., an ip-port
 ## Usage
 This docker container expects one command line argument per prefix mapped. Each
 argument must be a whitespace separated pair in the form of `<prefix> <addess>`.
-For example,given the command:
+For example, given the command:
 ```
 docker run -p 3000:80 ghcr.io/atomicul/docker-reverse-proxy:${IMAGE_VERSION} '/ http://host1' '/a/b/ http://host2'
 ```

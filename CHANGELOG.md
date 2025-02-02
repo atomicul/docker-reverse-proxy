@@ -21,3 +21,6 @@ with the defaults
 
 # v1.1.2
 * Rephrase README
+
+# v1.1.3
+* Fix missing space in README
